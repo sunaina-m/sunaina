@@ -4,7 +4,6 @@ import styled from 'styled-components'
 import { Button } from '../style/Button';
 
 const BannerSection = ({myname}) => {
-    console.log(myname)
     const {name} = myname
     return (
         <>
