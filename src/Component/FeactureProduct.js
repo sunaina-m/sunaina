@@ -5,12 +5,13 @@ import Products from './Products';
 
 
 
-const FeactureProduct = () => {
-    const{ isLoading,  featureProduct} =useProductContext();
-    console.log(featureProduct,"dsjklmdklx")
-   if(isLoading){
-     return <div>.......loading</div>
-   }
+const FeatureProduct = () => {
+  const { isLoading, featureProduct} = useProductContext();
+
+  if (isLoading) {
+    return <div> ......Loading </div>;
+  }
+
   return (
     <>
     <Wrapper className='section'>
@@ -126,4 +127,4 @@ figure {
 
 `;
 
-export default FeactureProduct
+export default FeatureProduct
