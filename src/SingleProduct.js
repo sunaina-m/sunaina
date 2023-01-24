@@ -4,15 +4,16 @@ import styled from 'styled-components';
 import PageNavigation from './Component/PageNavigation';
 import { useProductContext } from './context/productContext';
 import MyImage from './Component/MyImage';
-import FormatPrice from './Component/FormatPrice';
+import FormatPrice from './Helper/FormatPrice';
 import { MdSecurity } from "react-icons/md";
 import { TbTruckDelivery, TbReplace } from "react-icons/tb";
-
+import Star from './Component/Star';
+import AddToCart from './Component/AddToCart';
 
 
 const SingleProduct = () => {
   const { getSingleProduct, isSingleLoading, singleProduct } = useProductContext();
- console.log(singleProduct,"hello")
+ 
  const { id } = useParams();
 const {
   id:alias,
@@ -48,8 +49,9 @@ if(isSingleLoading){
           {/* product dAta  */}
           <div className="product-data">
             <h2>{name}</h2>
-            <p>{stars}</p>
-            <p>{reviews} reviews</p>
+            <Star star={stars} review={reviews}/>
+            
+            
             <p className="product-data-price">
               MRP:
               <del>
@@ -94,6 +96,8 @@ if(isSingleLoading){
                 Brand :<span> {company} </span>
               </p>
             </div>
+            <hr/>
+            {stock>0 && <AddToCart product={singleProduct}/>}
           </div>
         
         </div>

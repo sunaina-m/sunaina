@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import styled from 'styled-components'
 
-const MyImage = ({imgs = [{ url: "" }]}) => {
+const MyImage = ({ imgs = [{ url: "" }] }) => {
     const [mainImage, setMainImage] = useState(imgs[0]);
     return (
         <div>
@@ -28,7 +28,7 @@ const MyImage = ({imgs = [{ url: "" }]}) => {
                 <div className="main-screen">
                     <img src={mainImage.url} alt={mainImage.filename} />
                 </div>
-       
+
 
 
 
