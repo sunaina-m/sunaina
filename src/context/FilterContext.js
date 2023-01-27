@@ -11,7 +11,9 @@ const initialState = {
   sorting_value: "lowest",
   filter:{
     text:"",
-    category:"",
+    category: "all",
+    company: "all",
+    color: "all",
   }
 };
 
@@ -33,7 +35,6 @@ const updateFilterValue =(event)=>{
   let name =event.target.name;
   let value =event.target.value;
   return dispatch({type:"UPDATE_FILTER_VALUE", payload:{name,value}});
-
 }
 useEffect(()=>{
   dispatch({type:"FILTER_PRODUCTS"})

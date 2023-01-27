@@ -1,25 +1,33 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useFilterContext } from '../context/FilterContext'
+import { FaCheck } from "react-icons/fa";
 
 const FilterSection = () => {
-  const {filter:{text ,category}, updateFilterValue ,all_products}=useFilterContext()
-const getUniqueData =(data ,property)=>{
-  let newval =data.map((curElem)=>{
-   return curElem[property]
-  })
-  
-  newval =["All",...new Set(newval)]
-  console.log(newval)
-}
-  const CategoryData= getUniqueData(all_products, "category")
+  const { filter: { text, category ,color}, updateFilterValue, all_products } = useFilterContext()
+  //to get the unique data  of each fields
+  const getUniqueData = (data, attr) => {
+    let newval = data.map((curElem) => {
+      return curElem[attr]
+    })
+     if( attr === "colors"){
+      // return (newval = ["all", ...new Set([].concat(...newval))]);
+      newval = newval.flat();
+     }
+    return (newval = ["all", ...new Set(newval)])
+     
+  }
+  const CategoryData = getUniqueData(all_products, "category")
+  const companyData = getUniqueData(all_products, "company");
+  const colorsData = getUniqueData(all_products, "colors");
+  console.log(colorsData,"i")
   return (
     <Wrapper>
       <div className='filter-search'>
         <form onSubmit={(e) => e.preventDefault()}>
-        <input  type="text" name="text" placeholder="Search"  value={text} onChange={updateFilterValue}
-        placholder="Search"
-        />
+          <input type="text" name="text" placeholder="Search" value={text} onChange={updateFilterValue}
+            placholder="Search"
+          />
 
         </form>
       </div>
@@ -27,16 +35,67 @@ const getUniqueData =(data ,property)=>{
         <h3>Category</h3>
         <div>
           {
-          CategoryData.map((curElem, index) => {
+            CategoryData.map((curElem, index) => {
+              return (
+                <button
+                  key={index}
+                  type="button"
+                  name="category"
+                  value={curElem}
+                  className={curElem === category ? "active" : ""}
+                  onClick={updateFilterValue}>
+                  {curElem}
+                </button>
+              );
+            })}
+        </div>
+      </div>
+      <div className='filter-campany'>
+        <h3>Campany</h3>
+        <form action="#">
+          <label htmlFor="sort"></label>
+          <select name="company" id="company" className="filter-company--select " onClick={updateFilterValue}>
+            {
+              companyData.map((curElem, index) => {
+                return (
+                  <option key={index} value={curElem} name="company">
+                    {curElem}
+
+                  </option>
+                )
+              })
+            }
+          </select>
+        </form>
+      </div>
+      <div className="filter-colors colors">
+        <h3>Colors</h3>
+
+        <div className="filter-color-style">
+        {colorsData.map((curColor, index) => {
+        if( curColor ==="all"){
+          return (
+            <button
+              key={index}
+              type="button"
+              value={curColor}
+              name="color"
+             className="color-all--style "
+              onClick={updateFilterValue}>
+             all
+            </button>
+          );
+        }
             return (
               <button
                 key={index}
                 type="button"
-                name="category"
-                value={curElem}
-                className={curElem === category ? "active" : ""}
+                value={curColor}
+                name="color"
+                style={{ backgroundColor: curColor }}
+                className="btnStyle"
                 onClick={updateFilterValue}>
-                {curElem}
+                {color === curColor ?<FaCheck className="checkStyle"/> : null}
               </button>
             );
           })}
